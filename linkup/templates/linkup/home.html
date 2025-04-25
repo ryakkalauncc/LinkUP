@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LinkUp - Event List</title>
+</head>
+<body>
+    <h1>All Events</h1>
+    <ul>
+        {% for event in events %}
+            <li>
+                <strong>{{ event.title }}</strong><br>
+                {{ event.start_time }} - {{ event.end_time }}<br>
+                Organized by: {{ event.owner.username }}<br>
+                Attending: 
+                {% for user in event.participants.all %}
+                {{ user.username }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                No attendees yet
+                {% endfor %}
+                {% if request.user == event.owner %}
+                <br>
+                <a href="{% url 'edit_event' event.id %}">Edit</a> |
+                <a href="{% url 'delete_event' event.id %}">Delete</a>
+            {% endif %}
+            </li>
+        {% empty %}
+            <li>No events yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_event' %}">Create New Event</a>
+    <a href="{% url 'calendar' %}">📅 View Calendar</a>
+</body>
+</html>
