@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create Event - LinkUP</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+    
+        <header>
+            <div class="logo">
+                <a href="/"><h1>LinkUP</h1></a>
+            </div>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <!-- Logout buttons when logged in -->
+                        <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <li><button type="submit" class="btn-nav">Logout</button></li>
+                        </form>
+                    {% else %}
+                        <!-- Login and Sign Up buttons when not logged in -->
+                        <li><a href="{% url 'signup' %}" class="btn-nav">Sign Up</a></li>
+                        <li><a href="{% url 'login' %}" class="btn-nav">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+    
+<body>
+    <h2>Create an Account</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Log in here</a>.</p>
+</body>
+</html>

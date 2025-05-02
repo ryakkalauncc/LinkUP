@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Owned Events</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/"><h1>LinkUP</h1></a>
+        </div>
+    </header>
+
+    <main>
+        <h2>My Owned Events</h2>
+        <ul>
+            {% for event in events %}
+                <li>{{ event.title }} - {{ event.start_time }} to {{ event.end_time }}</li>
+            {% empty %}
+                <li>No owned events yet.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'mypage' %}">Back to My Page</a>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 LinkUP. All rights reserved.</p>
+    </footer>
+</body>
+</html>

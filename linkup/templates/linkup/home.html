@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUP - Home</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="/"><h1>LinkUP</h1></a>
+        </div>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <li><button type="submit" class="btn-nav">Logout</button></li>
+                    </form>
+                {% else %}
+                    <li><a href="{% url 'signup' %}" class="btn-nav">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}" class="btn-nav">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% if user.is_authenticated %}
+            <h2>Welcome, {{ user.username }}!</h2>
+            <section class="mypage-buttons">
+                <a href="{% url 'create_event' %}" class="btn btn-primary">Create Event</a>
+                <a href="{% url 'calendar' %}" class="btn btn-secondary">View Calendar</a>
+                <a href="{% url 'suggest_free_times' %}" class="btn btn-secondary">🔍 Suggest Free Time</a>
+            </section>
+
+            <section class="user-events">
+                <h3>Your Events</h3>
+                {% if events %}
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        {% for event in events %}
+                            <li style="margin-bottom: 20px;">
+                                <strong>{{ event.title }}</strong><br>
+                                {{ event.start_time|date:"F j, Y, g:i a" }} - {{ event.end_time|date:"F j, Y, g:i a" }}<br>
+                                <em>Organized by: <strong>{{ event.owner.username }}</strong></em><br>
+                                <a href="{% url 'edit_event' event.id %}" class="btn btn-primary">Edit</a>
+                                <a href="{% url 'delete_event' event.id %}" class="btn btn-danger">Delete</a>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>You haven't created any events yet.</p>
+                {% endif %}
+            </section>
+        {% else %}
+            <h2>Welcome to LinkUP</h2>
+            <p>Manage your schedule with LinkUP. Easier groupwork, time management, and free time slot checkup.</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 LinkUP. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

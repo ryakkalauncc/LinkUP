@@ -1,0 +1,118 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUP - Mypage</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    
+    <header>
+        <div class="logo">
+            <a href="/"><h1>LinkUP</h1></a>
+        </div>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <!-- Show Logout button only if logged in -->
+                    <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <li><button type="submit" class="btn-nav">Logout</button></li>
+                    </form>
+                {% else %}
+                    <!-- If not logged in, show login/signup buttons -->
+                    <li><a href="{% url 'signup' %}" class="btn-nav">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}" class="btn-nav">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% if user.is_authenticated %}
+            <!-- When logged in, show the user's information -->
+            <h2>Welcome, {{ user.username }}!</h2>
+
+            <!-- Buttons to Navigate to Owned Events and Participating Events -->
+            <section class="mypage-buttons">
+                <a href="{% url 'owned_events' %}" class="btn btn-primary">My Owned Events</a>
+                <a href="{% url 'participating_events' %}" class="btn btn-secondary">My Participating Events</a>
+            </section>
+
+            <!-- My Friends Section -->
+            <section>
+                <h3>My Friends</h3>
+                <ul>
+                    {% for friend in friends %}
+                        <li>{{ friend.username }}</li>
+                    {% empty %}
+                        <li>No friends yet.</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% else %}
+            <!-- When logged out, show a description about the website -->
+            <h2>Welcome to LinkUP</h2>
+            <p>Manage your schedule with LinkUP. Easier groupwork, time management, and free time slot checkup. Stay on top of your tasks and events effortlessly!</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 LinkUP. All rights reserved.</p>
+    </footer>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUP - Mypage</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    
+    <header>
+        <div class="logo">
+            <a href="/"><h1>LinkUP</h1></a>
+        </div>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <!-- Show Logout button only if logged in -->
+                    <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <li><button type="submit" class="btn-nav">Logout</button></li>
+                    </form>
+                {% else %}
+                    <!-- If not logged in, show login/signup buttons -->
+                    <li><a href="{% url 'signup' %}" class="btn-nav">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}" class="btn-nav">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% if user.is_authenticated %}
+            <!-- When logged in, show the user's information -->
+            <h2>Welcome, {{ user.username }}!</h2>
+            
+        {% else %}
+            <!-- When logged out, show a description about the website -->
+            <h2>Welcome to LinkUP</h2>
+            <p>Manage your schedule with LinkUP. Easier groupwork, time management, and free time slot checkup. Stay on top of your tasks and events effortlessly!</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 LinkUP. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
